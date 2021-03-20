@@ -5,6 +5,7 @@
   --n: 6;
   --size: 4.5rem;
   --corner: calc(12 * var(--size) / 100);
+  --active: "Desktop";
 }
 body {
   height: 100vh;
@@ -22,7 +23,7 @@ body {
   height: calc(3 * var(--size) / 4);
   width: var(--size);
   margin: 10px 5px 5px;
-  cursor:pointer;
+  cursor: pointer;
 }
 .folder::before {
   content: "";
@@ -41,10 +42,10 @@ body {
   align-items: center;
   overflow: hidden;
   white-space: wrap;
-  font-size: .9rem;
-  font-stretch: condensed;
-  font-family: helvetica,sans-serif;
-  color:rgba(255,255,255,.8);; 
+  font-size: 0.9rem;
+  /* font-stretch: condensed; */
+  font-family: helvetica, sans-serif;
+  color: rgba(255, 255, 255, 0.8);
   content: attr(data-name);
   position: absolute;
   height: 100%;
@@ -59,7 +60,7 @@ body {
 }
 
 .folder:hover:after {
-  content:"";
+  content: "";
   border-radius: var(--corner);
   filter: drop-shadow(0 50px 25px rgba(0, 0, 0, 0.2));
   transform: perspective(calc(3 * var(--size))) rotateX(-55deg);
@@ -67,29 +68,68 @@ body {
 }
 
 #topbar {
-  display: block;
   position: absolute;
   top: 0;
   height: 30px;
   width: 100%;
+  color: white;
+  font-family: Helvetica, sans-serif;
+  font-stretch: condensed;
+  /* padding-left:5rem;  */
   background-color: rgba(110, 110, 110, 0.56);
   box-shadow: 0px 1px 5px 5px rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(5px);
 }
+#topbar > ul::before {
+  content: var(--active);
+  /* padding:.4rem 1rem; */
+  height: 30px;
+  width: 110px;
+  margin: 2px;
+  text-align: center;
+  /* background-color: red; */
+  line-height: 27px;
+}
+#topbar ul {
+  display: flex;
+  flex-flow: column no-wrap;
+  list-style: none;
+}
+#topbar li {
+  z-index: 5;
+  width: 100px;
+  text-align: center;
+  line-height: 32px;
+}
+#topbar > ul > li > ul {
+  /* padding:.4rem 1rem; */
+  line-height: 50px;
+  background: rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 1px 5px 5px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+  border-radius: 0 0 10px 10px;
+}
+#topbar > ul > li > ul {
+  display: none;
+}
+#topbar > ul > li:hover > ul {
+  display: block;
+}
+
 #desktop {
   display: flex;
   flex-flow: column wrap;
   align-content: flex-start;
   position: absolute;
-  top:30px;
-  padding:1rem;
-  margin:0;
+  top: 30px;
+  padding: 1rem;
+  margin: 0;
   height: calc(100vh - calc(calc(var(--size) * 1.35) + 60px));
-  width:100%;
+  width: 100%;
 }
 
-#desktop .folder{
-margin:1.5rem;
+#desktop .folder {
+  margin: 1.5rem;
 }
 
 #dock {
