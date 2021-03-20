@@ -1,0 +1,134 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  --n: 6;
+  --size: 4.5rem;
+  --corner: calc(12 * var(--size) / 100);
+}
+body {
+  height: 100vh;
+  background: linear-gradient(rgba(180, 0, 0, 1), transparent),
+    linear-gradient(to top left, rgba(0, 180, 0, 1), transparent),
+    linear-gradient(to top right, rgba(0, 0, 180, 1), transparent);
+  background-blend-mode: lighten;
+}
+
+.folder {
+  position: relative;
+  background-color: rgba(0, 150, 250, 0.8);
+  box-shadow: 0 0 19px 4.5px rgba(2, 2, 2, 0.2);
+  border-radius: 0 var(--corner) var(--corner) var(--corner);
+  height: calc(3 * var(--size) / 4);
+  width: var(--size);
+  margin: 10px 5px 5px;
+  cursor:pointer;
+}
+.folder::before {
+  content: "";
+  width: 50%;
+  height: 15%;
+  border-radius: var(--corner) var(--corner) 0 0;
+  background-color: rgba(0, 150, 250, 0.8);
+  box-shadow: 0 -2px 29px rgba(2, 2, 2, 0.2);
+  position: absolute;
+  top: -15%;
+  left: 0px;
+}
+.folder::after {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  white-space: wrap;
+  font-size: .9rem;
+  font-stretch: condensed;
+  font-family: helvetica,sans-serif;
+  color:rgba(255,255,255,.8);; 
+  content: attr(data-name);
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  transform-origin: bottom;
+  background-color: rgba(0, 150, 250, 0.9);
+  border-radius: 0 var(--corner) var(--corner) var(--corner);
+  transform-origin: bottom;
+  transition: 0.4s, border 0.4s ease-out;
+}
+
+.folder:hover:after {
+  content:"";
+  border-radius: var(--corner);
+  filter: drop-shadow(0 50px 25px rgba(0, 0, 0, 0.2));
+  transform: perspective(calc(3 * var(--size))) rotateX(-55deg);
+  transition: transform 0.3s ease-out;
+}
+
+#topbar {
+  display: block;
+  position: absolute;
+  top: 0;
+  height: 30px;
+  width: 100%;
+  background-color: rgba(110, 110, 110, 0.56);
+  box-shadow: 0px 1px 5px 5px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+}
+#desktop {
+  display: flex;
+  flex-flow: column wrap;
+  align-content: flex-start;
+  position: absolute;
+  top:30px;
+  padding:1rem;
+  margin:0;
+  height: calc(100vh - calc(calc(var(--size) * 1.35) + 60px));
+  width:100%;
+}
+
+#desktop .folder{
+margin:1.5rem;
+}
+
+#dock {
+  display: flex;
+  justify-content: center;
+
+  height: calc(var(--size) * 1.35);
+  width: calc(calc(var(--size) * var(--n)) + calc(35px * var(--n)));
+
+  position: absolute;
+  bottom: 30px;
+  left: 0;
+  right: 0;
+  margin: auto;
+
+  border-radius: 10px;
+  background-color: rgba(110, 110, 110, 0.56);
+  box-shadow: 0px 0px 8px 2.1px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+  transition: transform 0.2s ease;
+}
+#dock > ul {
+  display: flex;
+  align-self: center;
+  align-items: center;
+  list-style: none;
+  flex-flow: row, no-wrap;
+}
+
+#dock li {
+  padding: 10px;
+  transition: all 0.3s ease;
+}
+
+#dock li:hover {
+  transform: scale(1.2) translateY(-2.5px);
+  padding: 25px;
+}
+
+#dock:hover {
+  transform: scale(1.05);
+}
