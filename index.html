@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>JSOS</title>
+    <title>JSOS</title> 
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="/src/styles.css" />
   </head>
 
   <body>
     <div id="topbar">
-			<ul data-name="Desktop">
+			<ul>
 				<li data-name="File"><a href="#">File</a>
-					<ul data-name="File">
+					<ul>
 						<li data-name="New File"><a href="#">New File</a></li>
 						<li data-name="Save as"><a href="#">Save as</a>
 							<ul>
@@ -26,23 +26,23 @@
 					</ul>
 				</li>
 				<li data-name="Edit"><a href="#">Edit</a>
-						<ul data-name="Edit">
+						<ul>
 							<li data-name="Undo"><a href="#">Undo</a></li>
 							<li data-name="Redo"><a href="#">Redo</a></li>
 						</ul>
 					</li>
 				<li data-name="Selection"><a href="#">Selection</a>
-						<ul data-name="Selection">
+						<ul>
 							<li data-name="Select all"><a href="#">Select all</a></li>
 						</ul>
 					</li>
 				<li data-name="View"><a href="#">View</a>
-						<ul data-name="View">
+						<ul>
 							<li data-name="Toggle Fullscreen"><a href="#">Toggle Fullscreen</a></li>
 						</ul>
 					</li>
 				<li data-name="Help"><a href="#">Help</a>
-						<ul data-name="Help">
+						<ul>
 						</ul>
 					</li>
 			</ul>
@@ -67,6 +67,21 @@
 				<li><div class="folder" data-name="Folder F"></div></li>
 			</ul>
 		</div>
-    <!-- <script src="src/index.js"> -->
+		<div id="menu">
+			<ul>
+					<li data-action="page_Reload"><a href="javascript:location.reload(true)">Reload</a></li>
+					<li><a href="#">Sort by</a></li>
+					<li><a href="#">Refresh</a></li>
+			</ul>
+			<ul disabled>
+					<li><a href="#">Paste</a></li>
+					<li><a href="#">Paste Shortcut</a></li>
+			</ul>
+			<ul>
+					<li ><a href="#">Display Settings</a></li>
+					<li><a href="#">Personalise</a></li>
+			</ul>
+		</div>
+		<script src="src/index.js"></script>
   </body>
 </html>
