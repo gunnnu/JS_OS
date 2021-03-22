@@ -1,87 +1,134 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>JSOS</title> 
+    <title>JSOS</title>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="/src/styles.css" />
   </head>
 
   <body>
     <div id="topbar">
-			<ul>
-				<li data-name="File"><a href="#">File</a>
-					<ul>
-						<li data-name="New File"><a href="#">New File</a></li>
-						<li data-name="Save as"><a href="#">Save as</a>
-							<ul>
-								<li><a href="#">Type 1</a>
-								<ul>
-									<li><a href="#">Type 1_1</a></li>
-								</ul>
-								</li>
-								<li><a href="#">Type 2</a></li>
-								<li><a href="#">Type 3</a></li>
-							</ul>
-						</li>
-					</ul>
-				</li>
-				<li data-name="Edit"><a href="#">Edit</a>
-						<ul>
-							<li data-name="Undo"><a href="#">Undo</a></li>
-							<li data-name="Redo"><a href="#">Redo</a></li>
-						</ul>
-					</li>
-				<li data-name="Selection"><a href="#">Selection</a>
-						<ul>
-							<li data-name="Select all"><a href="#">Select all</a></li>
-						</ul>
-					</li>
-				<li data-name="View"><a href="#">View</a>
-						<ul>
-							<li data-name="Toggle Fullscreen"><a href="#">Toggle Fullscreen</a></li>
-						</ul>
-					</li>
-				<li data-name="Help"><a href="#">Help</a>
-						<ul>
-						</ul>
-					</li>
-			</ul>
-		</div>
+      <ul>
+        <li data-name="File">
+          <a href="#">File</a>
+          <ul>
+            <li data-name="New File"><a href="#">New File</a></li>
+            <li data-name="Save as">
+              <a href="#">Save as</a>
+              <ul>
+                <li>
+                  <a href="#">Type 1</a>
+                  <ul>
+                    <li><a href="#">Type 1_1</a></li>
+                  </ul>
+                </li>
+                <li><a href="#">Type 2</a></li>
+                <li><a href="#">Type 3</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li data-name="Edit">
+          <a href="#">Edit</a>
+          <ul>
+            <li data-name="Undo"><a href="#">Undo</a></li>
+            <li data-name="Redo"><a href="#">Redo</a></li>
+          </ul>
+        </li>
+        <li data-name="Selection">
+          <a href="#">Selection</a>
+          <ul>
+            <li data-name="Select all"><a href="#">Select all</a></li>
+          </ul>
+        </li>
+        <li data-name="View">
+          <a href="#">View</a>
+          <ul>
+            <li data-name="Toggle Fullscreen">
+              <a href="#">Toggle Fullscreen</a>
+            </li>
+          </ul>
+        </li>
+        <li data-name="Help">
+          <a href="#">Help</a>
+          <ul></ul>
+        </li>
+      </ul>
+    </div>
+
     <div id="desktop">
-			<div class="folder" data-name="Folder 1"></div>
-			<div class="folder" data-name="Folder 2"></div>
-			<div class="folder" data-name="Folder 3"></div>
-			<div class="folder" data-name="Folder 4"></div>
-			<div class="folder" data-name="Folder 5"></div>
-			<div class="folder" data-name="Folder 6"></div>
-			<div class="folder" data-name="Folder 7"></div>
-			<div class="folder" data-name="Folder 8"></div>
-		</div>
+      <div class="folder" data-name="Folder 1"></div>
+      <div class="folder" data-name="Folder 2"></div>
+      <div class="folder" data-name="Folder 3"></div>
+      <div class="folder" data-name="Folder 4"></div>
+      <div class="folder" data-name="Folder 5"></div>
+      <div class="folder" data-name="Folder 6"></div>
+      <div class="folder" data-name="Folder 7"></div>
+      <div class="folder" data-name="Folder 8"></div>
+      <div class="window" draggable="true">
+        <span class="nav">
+          <span class="dot" onclick="close(this)" sym="&times;"></span>
+          <span class="dot" onclick="max(this)" sym="&square;"></span>
+          <span class="dot" onclick="min(this)" sym="&minus;"></span>
+        </span>
+        <span class="sidebar">
+          <ul data-name="Favourites">
+            <li><a href="#">Desktop</a></li>
+            <li><a href="#">Places</a></li>
+            <li><a href="#">Apps</a></li>
+            <li><a href="#">Disks</a></li>
+          </ul>
+          <ul data-name="Folders">
+            <li><a href="#">Folder 1</a></li>
+            <li><a href="#">Folder 2</a></li>
+            <li><a href="#">Folder 3</a></li>
+            <li><a href="#">Folder 4</a></li>
+          </ul>
+          <ul data-name="Folders">
+            <li><a href="#">Folder 1</a></li>
+            <li><a href="#">Folder 2</a></li>
+            <li><a href="#">Folder 3</a></li>
+            <li><a href="#">Folder 4</a></li>
+          </ul>
+          <ul data-name="Folders">
+            <li><a href="#">Folder 1</a></li>
+            <li><a href="#">Folder 2</a></li>
+            <li><a href="#">Folder 3</a></li>
+            <li><a href="#">Folder 4</a></li>
+          </ul>
+        </span>
+      </div>
+    </div>
+
     <div id="dock">
-			<ul>
-				<li><div class="folder" data-name="Folder A"></div></li>
-				<li><div class="folder" data-name="Folder B"></div></li>
-				<li><div class="folder" data-name="Folder C"></div></li>
-				<li><div class="folder" data-name="Folder D"></div></li>
-				<li><div class="folder" data-name="Folder E"></div></li>
-				<li><div class="folder" data-name="Folder F"></div></li>
-			</ul>
-		</div>
-		<div id="menu">
-			<ul>
-					<li data-action="page_Reload"><a href="javascript:location.reload(true)">Reload</a></li>
-					<li><a href="#">Sort by</a></li>
-					<li><a href="#">Refresh</a></li>
-			</ul>
-			<ul disabled>
-					<li><a href="#">Paste</a></li>
-					<li><a href="#">Paste Shortcut</a></li>
-			</ul>
-			<ul>
-					<li ><a href="#">Display Settings</a></li>
-					<li><a href="#">Personalise</a></li>
-			</ul>
-		</div>
-		<script src="src/index.js"></script>
+      <ul>
+        <li><div class="folder" data-name="Folder A"></div></li>
+        <li><div class="folder" data-name="Folder B"></div></li>
+        <li><div class="folder" data-name="Folder C"></div></li>
+        <li><div class="folder" data-name="Folder D"></div></li>
+        <li><div class="folder" data-name="Folder E"></div></li>
+        <li><div class="folder" data-name="Folder F"></div></li>
+      </ul>
+    </div>
+
+    <div id="menu">
+      <ul>
+        <li data-action="page_Reload">
+          <a href="javascript:location.reload(true)">Reload</a>
+        </li>
+        <li><a href="#">Sort by</a></li>
+        <li><a href="#">Refresh</a></li>
+      </ul>
+      <ul disabled>
+        <li><a href="#">Paste</a></li>
+        <li><a href="#">Paste Shortcut</a></li>
+      </ul>
+      <ul>
+        <li><a href="#">Display Settings</a></li>
+        <li><a href="#">Personalise</a></li>
+      </ul>
+    </div>
+
+    <script src="src/index.js"></script>
   </body>
 </html>
