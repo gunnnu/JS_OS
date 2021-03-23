@@ -1,5 +1,5 @@
 ::-webkit-scrollbar {
-  width: .4rem;
+  width: 0.4rem;
   height: 3px;
 }
 
@@ -100,8 +100,8 @@ body {
 
 .window {
   position: absolute;
-  height: 500px;
-  width: 700px;
+  height: calc(var(--size) * 6);
+  width: calc(var(--size) * 9.5);
   z-index: 101;
   background: rgba(180, 180, 180, 0.7);
   backdrop-filter: blur(7px);
@@ -122,7 +122,7 @@ body {
 }
 .window .sidebar ul {
   position: relative;
-  padding: 0 10px 0 20px ;
+  padding: 0 10px 0 20px;
   list-style: none;
   font-family: helvetica, sans-serif;
   color: #252525;
@@ -175,6 +175,24 @@ body {
 }
 .window .nav .dot:hover {
   opacity: 1;
+}
+.window::before {
+  display: block;
+  width: 100%;
+  text-align: center;
+  content: attr(data-name);
+  position: absolute;
+  font-family: helvetica, sans-serif;
+  top: -25px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.max {
+  height: calc(100% - 30px);
+  width: 100%;
+  top: 0.5px;
+  left: 0;
 }
 #menu {
   display: flex;
