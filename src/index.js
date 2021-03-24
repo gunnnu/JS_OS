@@ -3,32 +3,42 @@ var Desktop = document.getElementById("desktop");
 var Topbar = document.getElementById("topbar");
 var Dock = document.getElementById("dock");
 
-document.addEventListener(
-  "contextmenu",
-  function (e) {
-    // if(e.target.classList.contains('elem')){
-    e.preventDefault();
-    // menu.dataset.class=e.target.classList;
-    // menu.dataset.name=e.target.children[0].innerHTML;
-    // if(e.target.classList.contains('file')){
-    //     var url=e.target.style.backgroundImage.split('/');
-    //     menu.dataset.parentfolder=url[url.length-2]
-    // }
-    menu_show(e);
-  },
-  false
-);
-// var windows=document.getElementsByClassName("window");
+var windows = document.getElementsByClassName("window");
 
 var folders = document.getElementsByClassName("folder");
 var closeBut = document.getElementsByClassName("close");
 var maxBut = document.getElementsByClassName("max");
 var minBut = document.getElementsByClassName("min");
 
+var prevheight, prevwidth, prevtop, prevleft;
+
+document.addEventListener(
+  "contextmenu",
+  function (e) {
+    e.preventDefault();
+    if (e.target.classList.contains("window")) {
+      if (e.target.style.height === "30px") {
+        e.target.style.height = prevheight;
+      } else {
+        e.target.style.height = "30px";
+      }
+    }
+    // menu.dataset.class=e.target.classList;
+    // menu.dataset.name=e.target.children[0].innerHTML;
+    // if(e.target.classList.contains('file')){
+    //     var url=e.target.style.backgroundImage.split('/');
+    //     menu.dataset.parentfolder=url[url.length-2]
+    // }
+    else {
+      menu_show(e);
+    }
+  },
+  false
+);
+
 document.addEventListener("dblclick", function (e) {
-  for (var f of folders) {
-    if (f.contains(e.target)) {
-      var newWin = `<div class="window" data-name="${f.dataset.name}" draggable="true">
+  if (e.target.classList.contains("folder")) {
+    var newWin = `<div class="window" data-name="${e.target.dataset.name}" draggable="false">
     <span class="nav">
       <span class="dot close" sym="&times;"></span>
       <span class="dot max" sym="&square;"></span>
@@ -49,14 +59,20 @@ document.addEventListener("dblclick", function (e) {
       </ul>
     </span>
   </div>`;
-      Desktop.innerHTML += newWin;
-    }
+    Desktop.innerHTML += newWin;
   }
 });
 
 document.addEventListener("click", function (e) {
   if (!menu.contains(e.target)) {
     menu_hide();
+  }
+  if (e.target.classList.contains("window")) {
+    dragElement(e.target);
+    for (var l of windows) {
+      l.style.zIndex = "0";
+    }
+    e.target.style.zIndex = "1";
   }
 
   for (var i of closeBut) {
@@ -101,21 +117,34 @@ var closewin = (a) => {
   console.log("closing " + win.dataset.name);
   win.parentNode.removeChild(win);
 };
+var maxflag = 0;
+
+var prevheight, prevwidth, prevtop, prevleft;
 
 var max = (a) => {
   var win = a.parentNode.parentNode;
+
   console.log("Maximising " + win.dataset.name);
-  if (win.classList.contains("max")) {
-    win.classList.remove("max");
-    console.log(win.classList.contains("max"));
+
+  if (maxflag === 0) {
+    prevheight = window.getComputedStyle(win).height;
+    prevwidth = window.getComputedStyle(win).width;
+    prevtop = window.getComputedStyle(win).top;
+    prevleft = window.getComputedStyle(win).left;
+
+    win.style.height = "calc(100% - 30px)";
+    win.style.width = window.innerWidth + "px";
+    win.style.top = ".5px";
+    win.style.left = "0px";
+    maxflag = 1;
   } else {
-    win.classList.add("max");
-    console.log(win.classList.contains("max"));
+    win.style.height = prevheight;
+    win.style.width = prevwidth;
+    win.style.top = prevtop;
+    win.style.left = prevleft;
+    maxflag = 0;
   }
-  // win.style.height = window.innerHeight -30 + "px";
-  // win.style.width = window.innerWidth + "px";
-  // win.style.top = ".5px";
-  // win.style.left = "0px";
+  console.log(prevheight);
 };
 
 var min = (a) => {
@@ -123,3 +152,53 @@ var min = (a) => {
   console.log("Minimising " + win.dataset.name);
   win.parentNode.removeChild(win);
 };
+
+// setInterval(() => {
+// for (var w of windows) {
+//   dragElement(w);
+// }
+// }, 100);
+
+function dragElement(elmnt) {
+  var pos1 = 0,
+    pos2 = 0,
+    pos3 = 0,
+    pos4 = 0;
+  // if (document.getElementById(elmnt.id + "header")) {
+  //   // if present, the header is where you move the DIV from:
+  //   document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+  // } else {
+  // otherwise, move the DIV from anywhere inside the DIV:
+  elmnt.onmousedown = dragMouseDown;
+  // }
+
+  function dragMouseDown(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // get the mouse cursor position at startup:
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    // call a function whenever the cursor moves:
+    document.onmousemove = elementDrag;
+  }
+
+  function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // calculate the new cursor position:
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    // set the element's new position:
+    elmnt.style.top = elmnt.offsetTop - pos2 + "px";
+    elmnt.style.left = elmnt.offsetLeft - pos1 + "px";
+  }
+
+  function closeDragElement() {
+    // stop moving when mouse button is released:
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
