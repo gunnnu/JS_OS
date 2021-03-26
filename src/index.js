@@ -10,7 +10,7 @@ var closeBut = document.getElementsByClassName("close");
 var maxBut = document.getElementsByClassName("max");
 var minBut = document.getElementsByClassName("min");
 
-var prevheight, prevwidth, prevtop, prevleft;
+var prevheight, prevwidth, prevtop, prevleft, defaultheight;
 
 document.addEventListener(
   "contextmenu",
@@ -18,8 +18,9 @@ document.addEventListener(
     e.preventDefault();
     if (e.target.classList.contains("window")) {
       if (e.target.style.height === "30px") {
-        e.target.style.height = prevheight;
+        e.target.style.height = defaultheight;
       } else {
+        defaultheight = e.target.style.height;
         e.target.style.height = "30px";
       }
     }
@@ -38,7 +39,7 @@ document.addEventListener(
 
 document.addEventListener("dblclick", function (e) {
   if (e.target.classList.contains("folder")) {
-    var newWin = `<div class="window" data-name="${e.target.dataset.name}" draggable="false">
+    var newWin = `<div class="window" data-name="${e.target.dataset.name}">
     <span class="nav">
       <span class="dot close" sym="&times;"></span>
       <span class="dot max" sym="&square;"></span>
@@ -89,6 +90,37 @@ document.addEventListener("click", function (e) {
     }
   }
 });
+
+// var pos1, pos2, pos3, pos4;
+
+// document.addEventListener("onmousedown", (e) => {
+//   if (e.target.classList.contains("window")) {
+//     e.preventDefault();
+//     pos3 = e.clientX;
+//     pos4 = e.clientY;
+//   }
+
+//   // document.addEventListener("onmouseup", (e) => {
+//   //   if (e.target.classList.contains("window")) {
+//   // e.preventDefault();
+//   //     document.onmouseup = null;
+//   //     document.onmousemove = null;
+//   //   }
+//   // });
+
+//   document.addEventListener("onmousemove", (e) => {
+//     if (e.target.classList.contains("window")) {
+//       e.preventDefault();
+//       pos1 = pos3 - e.clientX;
+//       pos2 = pos4 - e.clientY;
+//       pos3 = e.clientX;
+//       pos4 = e.clientY;
+
+//       e.target.style.top = e.target.offsetTop - pos2 + "px";
+//       e.target.style.left = e.target.offsetLeft - pos1 + "px";
+//     }
+//   });
+// });
 
 var menu_show = (e) => {
   menu.style.opacity = "0";
@@ -150,7 +182,7 @@ var max = (a) => {
 var min = (a) => {
   var win = a.parentNode.parentNode;
   console.log("Minimising " + win.dataset.name);
-  win.parentNode.removeChild(win);
+  // win.parentNode.removeChild(win);
 };
 
 // setInterval(() => {
@@ -202,3 +234,11 @@ function dragElement(elmnt) {
     document.onmousemove = null;
   }
 }
+
+var clock = async () => {
+  var Time = new Date().toLocaleTimeString();
+  var clockdiv = document.getElementById("clock");
+  clockdiv.innerHTML = Time;
+  setTimeout(clock, 1000);
+};
+clock();
