@@ -68,6 +68,9 @@ document.addEventListener("click", function (e) {
   if (!menu.contains(e.target)) {
     menu_hide();
   }
+  // if(document.getElementById("clock").contains(e.target)){
+
+  // }
   if (e.target.classList.contains("window")) {
     dragElement(e.target);
     for (var l of windows) {
@@ -90,6 +93,32 @@ document.addEventListener("click", function (e) {
     }
   }
 });
+var d = new Date();
+console.log(d.getMonth());
+
+var Months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December"
+];
+var Days = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday"
+];
 
 // var pos1, pos2, pos3, pos4;
 
@@ -138,6 +167,7 @@ var menu_hide = () => {
   menu.style.zIndex = "-2";
   menu.style.pointerEvents = "none";
 };
+
 menu.childNodes.forEach((i) => {
   i.onclick = () => {
     menu_hide();
@@ -235,9 +265,25 @@ function dragElement(elmnt) {
   }
 }
 
+var calender = document.getElementById("calender");
+var clockdiv = document.getElementById("clock");
+
 var clock = async () => {
-  var Time = new Date().toLocaleTimeString();
-  var clockdiv = document.getElementById("clock");
+  var Time = new Date();
+  calender.dataset.time = Time.toLocaleDateString(navigator.language, {
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  })+"\n"+Time.toLocaleTimeString(navigator.language, {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12:true
+  });
+
+  Time = Time.toLocaleTimeString(navigator.language, {
+    hour: "2-digit",
+    minute: "2-digit"
+  });
   clockdiv.innerHTML = Time;
   setTimeout(clock, 1000);
 };
