@@ -268,17 +268,62 @@ function dragElement(elmnt) {
 var calender = document.getElementById("calender");
 var clockdiv = document.getElementById("clock");
 
+Days.forEach((i) => {
+  i = i.substr(0, 3);
+  calender.childNodes[1].innerHTML += `<div class='Weekday' data-name='${i}'><div>`;
+});
+var month = Number(
+  new Date().toLocaleDateString(navigator.language, {
+    month: "2-digit"
+  })
+);
+var year = Number(
+  new Date().toLocaleDateString(navigator.language, {
+    year: "numeric"
+  })
+);
+
+var daysCount;
+
+if (month != 2 && month % 2 == 0) {
+  daysCount = 30;
+} else if (month % 2 != 0) {
+  daysCount = 31;
+} else {
+  if (year % 400 == 0 || (year % 100 != 0 && year % 4 == 0)) {
+    daysCount = 29;
+  } else {
+    daysCount = 28;
+  }
+}
+var Weekday = document.getElementsByClassName("Weekday");
+var date1 = 1;
+
+  for (var day = 0; day < Weekday.length; day++) {
+    while (date1 <= daysCount) {
+      Weekday[day].innerHTML += `<div class="date" data-name="${date1}"><div>\n`;
+      date1++;
+      if (day === 6&&date1<32) {
+        day = -1;
+      }
+    break;
+    }
+  }
+
 var clock = async () => {
   var Time = new Date();
-  calender.dataset.time = Time.toLocaleDateString(navigator.language, {
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-  })+"\n"+Time.toLocaleTimeString(navigator.language, {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12:true
-  });
+  calender.dataset.time =
+    Time.toLocaleDateString(navigator.language, {
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    }) +
+    "\n" +
+    Time.toLocaleTimeString(navigator.language, {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true
+    });
 
   Time = Time.toLocaleTimeString(navigator.language, {
     hour: "2-digit",
