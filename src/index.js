@@ -283,32 +283,28 @@ var year = Number(
   })
 );
 
-var daysCount;
+var daysCount = new Date(year, month, 0).getDate();
 
-if (month != 2 && month % 2 == 0) {
-  daysCount = 30;
-} else if (month % 2 != 0) {
-  daysCount = 31;
-} else {
-  if (year % 400 == 0 || (year % 100 != 0 && year % 4 == 0)) {
-    daysCount = 29;
-  } else {
-    daysCount = 28;
-  }
-}
 var Weekday = document.getElementsByClassName("Weekday");
+
 var date1 = 1;
 
-  for (var day = 0; day < Weekday.length; day++) {
-    while (date1 <= daysCount) {
-      Weekday[day].innerHTML += `<div class="date" data-name="${date1}"><div>\n`;
-      date1++;
-      if (day === 6&&date1<32) {
-        day = -1;
-      }
-    break;
+var firstDay = new Date(month + "-1-" + year).getDay();
+
+for (var days = 0; days < firstDay - 1; days++) {
+  Weekday[days].innerHTML += `<div class="date" data-name=" "><div>\n`;
+}
+
+for (var day = firstDay - 1; day < Weekday.length; day++) {
+  while (date1 <= daysCount) {
+    Weekday[day].innerHTML += `<div class="date" data-name="${date1}"><div>\n`;
+    date1++;
+    if (day === 6 && date1 < 32) {
+      day = -1;
     }
+    break;
   }
+}
 
 var clock = async () => {
   var Time = new Date();

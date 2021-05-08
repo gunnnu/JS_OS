@@ -111,7 +111,11 @@ body {
   border-radius: var(--corner);
   border-top: 30px solid rgba(220, 220, 220, 0.4);
   resize: both;
+  /* pointer-events: none; */
 }
+/* .window > * {
+  pointer-events: all;
+} */
 .window .sidebar {
   display: block;
   position: absolute;
@@ -467,14 +471,15 @@ body {
 #calender {
   display: flex;
   flex-flow: row wrap;
+  font-family: helvetica;
   padding: 10px 0;
   position: absolute;
   background: rgba(180, 180, 180, 0.7);
   z-index: 50;
-  right: 5px;
+  right: 15px;
   border-radius: var(--corner);
-  margin-top: 15px;
-  height: calc(var(--size) * 4);
+  margin-top: 55px;
+  height: calc(var(--size) * 4.5);
   width: calc(var(--size) * 4);
 }
 #calender:after {
@@ -514,6 +519,8 @@ body {
   display: block;
   position: absolute;
   width: 85%;
+  left: 0;
+  right: 0;
   height: 10px;
   margin: 0 auto;
   border-top: 2px solid #777;
@@ -524,7 +531,7 @@ body {
   flex-flow: row wrap;
   justify-content: flex-start;
   align-items: flex-start;
-  margin:auto;
+  margin: auto;
   height: 90%;
   width: 35px;
   /* background: red; */
@@ -532,21 +539,30 @@ body {
 .Weekday:before {
   display: block;
   position: relative;
-  top:-1px;
+  top: -1px;
   content: attr(data-name);
   text-align: center;
-  margin:0 auto;
+  margin: 0 auto;
 }
-.date{
-display: block;
-width: 100%;
-height:30px;
-margin:3.2px auto;
-background: red;
+.date {
+  display: flex;
+  width: 100%;
+  height: 30px;
+  margin: 3.2px auto;
+  justify-content: center;
+  align-items: center;
+  /* background: red; */
 }
-.date:before{
+.date:before {
+  display: flex;
   position: absolute;
-  width:100%;
-  content:attr(data-name);
-  text-align:center;
+  content: attr(data-name);
+  padding: auto;
+  text-align: center;
+}
+.Weekday :not([data-name=" "]):hover {
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: var(--corner);
+  color: white;
+  opacity: 0.7;
 }
